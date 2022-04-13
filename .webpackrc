@@ -1,0 +1,19 @@
+{
+    "extraBabelPlugins": [
+        [
+            "import",
+            {
+                "libraryName": "antd-mobile",
+                "libraryDirectory": "es",
+                "style": true
+            }
+        ]
+    ],
+     "proxy": {
+        "/my": {
+            "target": "http://localhost:9000",
+            "changeOrigin": true,
+            "pathRewrite": { "^/my": " " }
+        }
+    }
+}
