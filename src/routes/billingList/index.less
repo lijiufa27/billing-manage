@@ -1,0 +1,70 @@
+.page {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        height: 50px;
+        z-index: 2;
+    }
+
+    .roomList {
+        flex: 1;
+        min-height: 96px;
+        overflow-y: auto;
+        margin-bottom: 50px;
+
+        .label {
+            height: 30px;
+            line-height: 30px;
+            color: #000;
+            font-size: 17px;
+            padding-left: 15px;
+        }
+
+        .list {
+            margin-top: 20px;
+        }
+
+
+        :global {
+            .am-list-brief {
+                color: #000;
+                font-size: 17px;
+            }
+
+            .am-list-item .am-list-thumb {
+                margin-right: 0;
+            }
+
+            .am-checkbox {
+                height: auto !important;
+            }
+
+            .am-checkbox-inner {
+                top: 50px !important;
+            }
+        }
+    }
+
+    .footer {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 50px;
+        border-top: 1px solid rgba(224, 223, 223, 0.551);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .payBtn {
+            margin: 0 20px;
+        }
+
+        .total {
+            color: #000;
+            font-size: 17px;
+        }
+    }
+}

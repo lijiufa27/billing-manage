@@ -23,7 +23,6 @@ const pickerData = [
 ];
 
 function QueryRoom({ dispatch, roomsBiling: { roomsList, name, }, history }) {
-  console.log(history, 'history');
   const [idCard, setIdCard] = useState('')
   const [person, setPerson] = useState('')
 
@@ -45,8 +44,9 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, }, history }) {
     setIdCard(val)
   }
 
-  const toBillingList = (htbh) => {
-    history.push('/billingList', {contractNumber: htbh, person})
+  const toBillingList = (item) => {
+    const personType = person[0] === '承租方' ? 'I' : 'O'
+    history.push('/billingList', {contractNumber: item.htbh,name, personType, idCard, roomPosition: item.zl})
   }
 
 
@@ -54,7 +54,7 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, }, history }) {
     <div className={styles.page}>
       <NavBar mode='light'>房源查询</NavBar>
       <List>
-        <InputItem placeholder='请输入身份证号' onChange={getIdCard} value={idCard}>身份证号</InputItem>
+        <InputItem clear placeholder='请输入身份证号' onChange={getIdCard} value={idCard}>身份证号</InputItem>
         <Picker
           data={pickerData}
           cascade={false}
@@ -75,7 +75,7 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, }, history }) {
         <div className={styles.list}>
           <List className="my-list">
             {roomsList.map(item => 
-              <Item key={item.htbh} multipleLine arrow="horizontal" onClick={() => toBillingList(item.htbh)}>
+              <Item key={item.htbh} multipleLine arrow="horizontal" onClick={() => toBillingList(item)}>
                 房屋坐落：{item.zl}
                 <Brief>合同备案号：{item.htbh}</Brief>
               </Item>

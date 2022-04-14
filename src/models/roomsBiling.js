@@ -1,4 +1,5 @@
-import { queryRooms } from '../services/roomsBiling'
+import { queryRooms, queryBillingList, getPayCode  } from '../services/roomsBiling'
+import moment from 'moment'
 import { Toast } from 'antd-mobile'
 
 export default {
@@ -8,7 +9,10 @@ export default {
   state: {
     roomsList: [],
     idCard: '',
-    name: ''
+    name: '',
+    unpayBillingList: [],
+    finishPayBillingList: [],
+    payCode: ''
   },
 
   subscriptions: {
@@ -18,12 +22,28 @@ export default {
 
   effects: {
     *fetchQuery({ payload }, { call, put }) {  // eslint-disable-line
-      console.log(payload, 'model');
       const result = yield call(queryRooms, payload);
-      console.log(result, 'result');
       if (result.success) {
         Toast.success('请求成功', 1)
         yield put({ type: 'queryList', payload: result.payload });
+      } else {
+        Toast.fail('请求失败')
+      }
+    },
+    *fetchBillingList({ payload }, { call, put }) {  // eslint-disable-line
+      const result = yield call(queryBillingList, payload);
+      if (result.success) {
+        Toast.success('请求成功', 1)
+        yield put({ type: 'queryBillingList', payload: result.payload });
+      } else {
+        Toast.fail('请求失败')
+      }
+    },
+    *fetchPayCode({ payload }, { call, put }) {  // eslint-disable-line
+      const result = yield call(getPayCode, payload);
+      if (result.success) {
+        Toast.success('请求成功', 1)
+        yield put({ type: 'queryPayCode', payload: result.payload });
       } else {
         Toast.fail('请求失败')
       }
@@ -37,6 +57,25 @@ export default {
         roomsList: action.payload.htList,
         idCard: action.payload.zjhm,
         name: action.payload.xm
+      };
+    },
+    queryBillingList(state, action) {
+      const unpayBillingList = action.payload.rentPlanInfoList.filter(item => item.status !== 'S')
+      const finishPayBillingList = action.payload.rentPlanInfoList.filter(item => item.status === 'S')
+      unpayBillingList.forEach(item => {
+        item.rmk1 = moment(item.rmk1).format('YYYY年MM月DD日')
+        item.rmk2 = moment(item.rmk2).format('YYYY年MM月DD日')
+      });
+      return { 
+        ...state, 
+        unpayBillingList,
+        finishPayBillingList
+      };
+    },
+    queryPayCode(state, action) {
+      return { 
+        ...state,
+        payCode: action.payload.idIdNo
       };
     },
   },

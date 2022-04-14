@@ -8,6 +8,6 @@ export function queryBillingList(payload) {
   return http.post('/my/apis/iifs-bris/route/jsotnb/queryPlanProcess', payload);
 }
 
-export function pay(payload) {
+export function getPayCode(payload) {
   return http.post('/my/apis/iifs-bris/route/jsotnb/jsotnbDirectPayProcess', payload);
 }
