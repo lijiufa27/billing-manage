@@ -9,6 +9,17 @@
         z-index: 2;
     }
 
+    .rentList {
+        :global {
+            .am-checkbox {
+                border-bottom: 0.5px solid rgb(179, 176, 176);
+            }
+
+            .am-list-body div:not(:last-child) .am-list-line::after {
+                height: 0!important;
+            }
+        }
+    }
     .roomList {
         flex: 1;
         min-height: 96px;
@@ -45,6 +56,8 @@
             .am-checkbox-inner {
                 top: 50px !important;
             }
+
+            
         }
     }
 

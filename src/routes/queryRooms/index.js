@@ -27,8 +27,8 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, }, history }) {
   const [person, setPerson] = useState('')
 
   const queryRooms = () => {
-    if(!idCard) {
-      Toast.info('请输入身份证号', 1)
+    if(idCard.length !== 18) {
+      Toast.info('请输入正确的身份证号', 1)
       return null
     }else if (!person) {
       Toast.info('请选择主体', 1)
@@ -54,7 +54,7 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, }, history }) {
     <div className={styles.page}>
       <NavBar mode='light'>房源查询</NavBar>
       <List>
-        <InputItem clear placeholder='请输入身份证号' onChange={getIdCard} value={idCard}>身份证号</InputItem>
+        <InputItem type='text' clear maxLength={18} placeholder='请输入身份证号' onChange={getIdCard} value={idCard}>身份证号</InputItem>
         <Picker
           data={pickerData}
           cascade={false}

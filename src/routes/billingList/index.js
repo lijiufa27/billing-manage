@@ -28,14 +28,14 @@ function BillingList({ roomsBiling: { unpayBillingList, finishPayBillingList }, 
       Toast.info('请勾选未支付的账单', 1)
       return null
     }
-    history.push('/payment', {payData, totalMoney, rentCompany: payData[0].rentCompany, monitorAccount: payData[0].monitorAccount})
+    history.push('/payment', { payData, totalMoney, rentCompany: payData[0].rentCompany, monitorAccount: payData[0].monitorAccount })
   }
 
 
   const getTotalMoney = (e, item) => {
-    if(e.target.checked) {
+    if (e.target.checked) {
       setTotalMoney(totalMoney + Number(item.zfje))
-      payData.push({sqn:item.sqn, date: `${item.rmk1} 至 ${item.rmk2}`, rentCompany: item.jgqymc, monitorAccount: item.jgzh})
+      payData.push({ sqn: item.sqn, date: `${item.rmk1} 至 ${item.rmk2}`, rentCompany: item.jgqymc, monitorAccount: item.jgzh })
     } else {
       const index = payData.findIndex(sub => sub.sqn === item.sqn)
       payData.splice(index, 1)
@@ -60,7 +60,7 @@ function BillingList({ roomsBiling: { unpayBillingList, finishPayBillingList }, 
         <div className={styles.label}>房屋坐落：{roomPosition}</div>
         <div className={styles.label}>合同备案号：{contractNumber}</div>
         <div className={styles.list}>
-          <List className="my-list">
+          {personType === 'I' ? <List className={styles.rentList}>
             {unpayBillingList.length > 0 && unpayBillingList.map(item => {
               return item.rmk3 === 'Y' ?
                 <CheckboxItem key={item.sqn} onChange={(e) => { getTotalMoney(e, item) }}>
@@ -93,13 +93,38 @@ function BillingList({ roomsBiling: { unpayBillingList, finishPayBillingList }, 
                   </Item>
                 </CheckboxItem>
             })}
-          </List>
+          </List> : <List className="my-list">
+            {unpayBillingList.length > 0 && unpayBillingList.map(item => {
+              return item.rmk3 === 'Y' ?
+                <Item key={item.sqn} multipleLine  >
+                  押金：{item.yj}
+                  <Brief>支付状态：未支付</Brief>
+                </Item> :
+                <Item key={item.sqn} multipleLine  >
+                  账期：{`${item.rmk1} 至 ${item.rmk2}`}
+                  <Brief>租金金额：{item.zfje}</Brief>
+                  <Brief>支付状态：未支付</Brief>
+                </Item>
+            })}
+            {finishPayBillingList.length > 0 && finishPayBillingList.map(item => {
+              return item.rmk3 === 'Y' ?
+                <Item key={item.sqn} multipleLine  >
+                  押金：{item.yj}
+                  <Brief>支付状态：已支付</Brief>
+                </Item> :
+                <Item  key={item.sqn} multipleLine  >
+                  账期：{`${item.rmk1}至${item.rmk2}`}
+                  <Brief>租金金额：{item.zfje}</Brief>
+                  <Brief>支付状态：已支付</Brief>
+                </Item>
+            })}
+          </List>}
         </div>
       </div>
-      <div className={styles.footer}>
+      {personType === 'I' && <div className={styles.footer}>
         <div className={styles.total}>合计：{totalMoney}元</div>
         <Button className={styles.payBtn} type='primary' onClick={toPaymentPage}>确认支付</Button>
-      </div>
+      </div>}
     </div>
   );
 }

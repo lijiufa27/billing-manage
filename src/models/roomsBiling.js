@@ -54,7 +54,7 @@ export default {
     queryList(state, action) {
       return { 
         ...state, 
-        roomsList: action.payload.hdData.htList,
+        roomsList: action.payload.htData.htList,
         idCard: action.payload.zjhm,
         name: action.payload.xm
       };

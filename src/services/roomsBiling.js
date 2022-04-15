@@ -5,7 +5,7 @@ export function queryRooms(payload) {
 }
 
 export function queryBillingList(payload) {
-  return http.post('/my/iifstrl/apis/iifs-bris/route/jsotnb/queryPlanProcess', payload);
+  return http.post('/my/iifstrl/apis/iifs-bris/route/jsotnb/queryPlanBillProcess', payload);
 }
 
 export function getPayCode(payload) {
