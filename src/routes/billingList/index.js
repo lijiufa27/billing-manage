@@ -62,19 +62,18 @@ function BillingList({ roomsBiling: { unpayBillingList, finishPayBillingList }, 
         <div className={styles.list}>
           <List className="my-list">
             {unpayBillingList.length > 0 && unpayBillingList.map(item => {
-              const status = item.status === 'U' ? '未支付' : '扣款失败'
               return item.rmk3 === 'Y' ?
                 <CheckboxItem key={item.sqn} onChange={(e) => { getTotalMoney(e, item) }}>
                   <Item multipleLine  >
                     押金：{item.yj}
-                    <Brief>支付状态：{status}</Brief>
+                    <Brief>支付状态：未支付</Brief>
                   </Item>
                 </CheckboxItem> :
                 <CheckboxItem key={item.sqn} onChange={(e) => { getTotalMoney(e, item) }}>
                   <Item multipleLine  >
                     账期：{`${item.rmk1} 至 ${item.rmk2}`}
                     <Brief>租金金额：{item.zfje}</Brief>
-                    <Brief>支付状态：{status}</Brief>
+                    <Brief>支付状态：未支付</Brief>
                   </Item>
                 </CheckboxItem>
             })}
