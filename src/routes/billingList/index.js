@@ -65,7 +65,7 @@ function BillingList({ roomsBiling: { unpayBillingList, finishPayBillingList }, 
               return item.rmk3 === 'Y' ?
                 <CheckboxItem key={item.sqn} onChange={(e) => { getTotalMoney(e, item) }}>
                   <Item multipleLine  >
-                    押金：{item.yj}
+                    押金：{item.zfje}
                     <Brief>支付状态：未支付</Brief>
                   </Item>
                 </CheckboxItem> :
@@ -81,7 +81,7 @@ function BillingList({ roomsBiling: { unpayBillingList, finishPayBillingList }, 
               return item.rmk3 === 'Y' ?
                 <CheckboxItem key={item.sqn} disabled>
                   <Item multipleLine  >
-                    押金：{item.yj}
+                    押金：{item.zfje}
                     <Brief>支付状态：已支付</Brief>
                   </Item>
                 </CheckboxItem> :
@@ -97,7 +97,7 @@ function BillingList({ roomsBiling: { unpayBillingList, finishPayBillingList }, 
             {unpayBillingList.length > 0 && unpayBillingList.map(item => {
               return item.rmk3 === 'Y' ?
                 <Item key={item.sqn} multipleLine  >
-                  押金：{item.yj}
+                  押金：{item.zfje}
                   <Brief>支付状态：未支付</Brief>
                 </Item> :
                 <Item key={item.sqn} multipleLine  >
@@ -109,7 +109,7 @@ function BillingList({ roomsBiling: { unpayBillingList, finishPayBillingList }, 
             {finishPayBillingList.length > 0 && finishPayBillingList.map(item => {
               return item.rmk3 === 'Y' ?
                 <Item key={item.sqn} multipleLine  >
-                  押金：{item.yj}
+                  押金：{item.zfje}
                   <Brief>支付状态：已支付</Brief>
                 </Item> :
                 <Item  key={item.sqn} multipleLine  >

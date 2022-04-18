@@ -12,7 +12,8 @@ export default {
     name: '',
     unpayBillingList: [],
     finishPayBillingList: [],
-    payCode: ''
+    payCode: '',
+    mainType: ''
   },
 
   subscriptions: {
@@ -27,7 +28,7 @@ export default {
         Toast.success('请求成功', 1)
         yield put({ type: 'queryList', payload: result.payload });
       } else {
-        Toast.fail('请求失败')
+        Toast.fail(result.responseMessage)
       }
     },
     *fetchBillingList({ payload }, { call, put }) {  // eslint-disable-line
@@ -36,7 +37,7 @@ export default {
         Toast.success('请求成功', 1)
         yield put({ type: 'queryBillingList', payload: result.payload });
       } else {
-        Toast.fail('请求失败')
+        Toast.fail(result.responseMessage)
       }
     },
     *fetchPayCode({ payload }, { call, put }) {  // eslint-disable-line
@@ -45,7 +46,7 @@ export default {
         Toast.success('请求成功', 1)
         yield put({ type: 'queryPayCode', payload: result.payload });
       } else {
-        Toast.fail('请求失败')
+        Toast.fail(result.responseMessage)
       }
     },
   },
@@ -56,7 +57,8 @@ export default {
         ...state, 
         roomsList: action.payload.htData.htList,
         idCard: action.payload.htData.zjhm,
-        name: action.payload.htData.xm
+        name: action.payload.htData.xm,
+        mainType: action.payload.htData.rlx
       };
     },
     queryBillingList(state, action) {

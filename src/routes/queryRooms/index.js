@@ -22,12 +22,12 @@ const pickerData = [
   ],
 ];
 
-function QueryRoom({ dispatch, roomsBiling: { roomsList, name, }, history }) {
-  const [idCard, setIdCard] = useState('')
+function QueryRoom({ dispatch, roomsBiling: { roomsList, name, idCard, mainType}, history }) {
+  const [idCardInput, setIdCardInput] = useState('')
   const [person, setPerson] = useState('')
 
   const queryRooms = () => {
-    if(idCard.length !== 18) {
+    if(idCardInput.length !== 18) {
       Toast.info('请输入正确的身份证号', 1)
       return null
     }else if (!person) {
@@ -36,16 +36,16 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, }, history }) {
     }
     dispatch({
       type: 'roomsBiling/fetchQuery',
-      payload: { zjhm: idCard, rlx: person[0] },
+      payload: { zjhm: idCardInput, rlx: person[0] },
     })
   }
 
   const getIdCard = (val) => {
-    setIdCard(val)
+    setIdCardInput(val)
   }
 
   const toBillingList = (item) => {
-    const personType = person[0] === '承租方' ? 'I' : 'O'
+    const personType = mainType === '承租方' ? 'I' : 'O'
     history.push('/billingList', {contractNumber: item.htbh,name, personType, idCard, roomPosition: item.zl})
   }
 
@@ -54,7 +54,7 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, }, history }) {
     <div className={styles.page}>
       <NavBar mode='light'>房源查询</NavBar>
       <List>
-        <InputItem type='text' clear maxLength={18} placeholder='请输入身份证号' onChange={getIdCard} value={idCard}>身份证号</InputItem>
+        <InputItem type='text' clear maxLength={18} placeholder='请输入身份证号' onChange={getIdCard} value={idCardInput}>身份证号</InputItem>
         <Picker
           data={pickerData}
           cascade={false}
