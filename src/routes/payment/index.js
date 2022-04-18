@@ -4,7 +4,6 @@ import styles from './index.less';
 import { NavBar, Icon, Button, Toast } from 'antd-mobile'
 
 function Payment({ roomsBiling: { payCode }, location, history, dispatch, roomsBiling }) {
-  console.log(location.state, 'location');
   const { state: { payData, totalMoney, rentCompany, monitorAccount } } = location
 
   const initData = () => {
@@ -15,7 +14,7 @@ function Payment({ roomsBiling: { payCode }, location, history, dispatch, roomsB
 
     dispatch({
       type: 'roomsBiling/fetchPayCode',
-      payload: { sqnList },
+      payload: { sqnList, totalMoney },
     })
   }
 
@@ -43,9 +42,6 @@ function Payment({ roomsBiling: { payCode }, location, history, dispatch, roomsB
     initData()
   }, [])
 
-  console.log(roomsBiling, 'roomsBiling');
-
-
   return (
     <div className={styles.page}>
       <NavBar
@@ -61,7 +57,7 @@ function Payment({ roomsBiling: { payCode }, location, history, dispatch, roomsB
           </span>
           <div className={styles.list}>
             {payData.length > 0 && payData.map(item => (
-              <div className={styles.dateList}>{item.date}</div>
+              <div key={item.date} className={styles.dateList}>{item.date}</div>
             ))}
           </div>
         </div>
@@ -70,7 +66,7 @@ function Payment({ roomsBiling: { payCode }, location, history, dispatch, roomsB
         <div className={styles.label}>监管账户：{monitorAccount}</div>
         <div className={styles.label}>收款识别码账号：{payCode}</div>
         <div className={styles.input_wrap} >
-          <input id="input" type="text" readonly="true" />
+          <input id="input" type="text" readOnly />
         </div>
         <Button style={{ margin: '15px' }} type='primary' onClick={copyText}>复制收款识别码账号</Button>
       </div>

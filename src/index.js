@@ -1,7 +1,8 @@
 import dva from 'dva';
 import 'antd-mobile/dist/antd-mobile.css'
 import './index.css';
-const createHistory = require('history').createBrowserHistory;
+const createHistory = require('history').createHashHistory;
+// const createHistory = require('history').createBrowserHistory;
 
 
 // 1. Initialize

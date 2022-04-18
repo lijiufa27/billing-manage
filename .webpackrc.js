@@ -1,4 +1,4 @@
-{
+export default  {
     "extraBabelPlugins": [
         [
             "import",
@@ -15,5 +15,10 @@
             "changeOrigin": true,
             "pathRewrite": { "^/my": " " }
         }
-    }
+    },
+    "define": {
+        "process.env": {
+          "API_EVN": process.env.API_EVN,
+        }
+      }
 }
