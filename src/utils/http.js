@@ -5,9 +5,6 @@
 import axios from 'axios'
 import { Toast } from 'antd-mobile'
 
-// 设置请求的服务器根路径
-//  axios.defaults.baseURL = 'http://127.0.0.1:9000'
-// axios.defaults.baseURL = 'http://192.168.1.101:8081'; // 设置全局默认基本信息
 axios.defaults.headers['Content-Type'] = 'application/json';
 
 

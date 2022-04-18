@@ -55,8 +55,8 @@ export default {
       return { 
         ...state, 
         roomsList: action.payload.htData.htList,
-        idCard: action.payload.zjhm,
-        name: action.payload.xm
+        idCard: action.payload.htData.zjhm,
+        name: action.payload.htData.xm
       };
     },
     queryBillingList(state, action) {
