@@ -22,6 +22,7 @@ const pickerData = [
   ],
 ];
 
+
 function QueryRoom({ dispatch, roomsBiling: { roomsList, name, idCard, mainType}, history }) {
   const [idCardInput, setIdCardInput] = useState('')
   const [person, setPerson] = useState('')

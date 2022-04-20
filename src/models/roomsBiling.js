@@ -58,7 +58,7 @@ export default {
         roomsList: action.payload.htData.htList,
         idCard: action.payload.htData.zjhm,
         name: action.payload.htData.xm,
-        mainType: action.payload.htData.rlx
+        mainType: action.payload.rlx
       };
     },
     queryBillingList(state, action) {
