@@ -2,28 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router'
 import { Button, List, InputItem, NavBar, Picker, Toast } from 'antd-mobile'
-import styles from './index.less';
+import { observer } from 'mobx-react';
+import store from './store'
 
 
 
-const Item = List.Item;
-const Brief = Item.Brief;
-
-const pickerData = [
-  [
-    {
-      label: '租客',
-      value: '承租方',
-    },
-    {
-      label: '房东',
-      value: '出租方',
-    },
-  ],
-];
-
-
-function QueryRoom({ dispatch, roomsBiling: { roomsList, name, idCard, mainType}, history }) {
+function QueryRoom() {
   const [idCardInput, setIdCardInput] = useState('')
   const [person, setPerson] = useState('')
 
@@ -35,10 +19,10 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, idCard, mainType}
       Toast.info('请选择主体', 1)
       return null
     }
-    dispatch({
-      type: 'roomsBiling/fetchQuery',
-      payload: { zjhm: idCardInput, rlx: person[0] },
-    })
+    // dispatch({
+    //   type: 'roomsBiling/fetchQuery',
+    //   payload: { zjhm: idCardInput, rlx: person[0] },
+    // })
   }
 
   const getIdCard = (val) => {
@@ -46,14 +30,16 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, idCard, mainType}
   }
 
   const toBillingList = (item) => {
-    const personType = mainType === '承租方' ? 'I' : 'O'
-    history.push('/billingList', {contractNumber: item.htbh,name, personType, idCard, roomPosition: item.zl})
+    // const personType = mainType === '承租方' ? 'I' : 'O'
+    // history.push('/billingList', {contractNumber: item.htbh,name, personType, idCard, roomPosition: item.zl})
   }
 
 
   return (
-    <div className={styles.page}>
-      <NavBar mode='light'>房源查询</NavBar>
+    <div>
+      <div>{store.num}</div>
+      <Button type="primary" onClick={() => { store.setNum(5)}}>add</Button>
+      {/* <NavBar mode='light'>房源查询</NavBar>
       <List>
         <InputItem type='text' clear maxLength={18} placeholder='请输入身份证号' onChange={getIdCard} value={idCardInput}>身份证号</InputItem>
         <Picker
@@ -69,8 +55,8 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, idCard, mainType}
       </List>
       <div className={styles.btn}>
         <Button type="primary" onClick={queryRooms}>查询</Button>
-      </div>
-
+      </div> */}
+{/* 
       {roomsList.length > 0 && <div className={styles.roomList}>
         <div className={styles.label}>姓名：{name}</div>
         <div className={styles.list}>
@@ -83,9 +69,11 @@ function QueryRoom({ dispatch, roomsBiling: { roomsList, name, idCard, mainType}
             )}
           </List>
         </div>
-      </div>}
+      </div>} */}
     </div>
   );
 }
 
-export default connect(({ roomsBiling }) => ({ roomsBiling }))(QueryRoom);
+// export default connect(({ roomsBiling }) => ({ roomsBiling }))(QueryRoom);
+export default observer(QueryRoom);
+

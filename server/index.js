@@ -1,42 +1,63 @@
 //首先加载express
 const express = require('express')
 const app = express()
+const path = require('path')
+const fs = require('fs')
 //端口号
 const port = 9000
 //引入自定义的mysql文件
-const db = require('./db.js')
-app.use(express.json())
-//这里仅列举发送GET请求
-app.post('/iifstrl/apis/iifs-bris/route/jsotnb/queryHtInfoProcess', (req, res) => {
-    console.log(req.body);
-    res.send({
-        success: true,
-        msg: '请求成功',
-        payload: {
-            htData: {
-                htList: [
-                    {
-                        zl: 'xxxxx',
-                        htbh: '1232134321'
-                    },
-                    {
-                        zl: 'xxxxx',
-                        htbh: '1232143321'
-                    },
-                    {
-                        zl: 'xxxxx',
-                        htbh: '1232143213'
-                    }
-                ],
-                xm: 'xxx',
-                zjhm: '2746832468127468127',
-                
-            },
-            rlx: '承租方'
-            
+// const db = require('./db.js')
 
-        }
-    })
+let filePath = path.resolve('./test.pdf');
+let data = fs.readFileSync( path.resolve(filePath));
+data = Buffer.from(data).toString('base64');
+
+
+
+app.use(express.json())
+// 获取订单信息
+app.post('/jsotnb/zhyc/selectWlddByNoProcess', (req, res) => {
+    console.log(req.body);
+        res.send({
+            success: true,
+            msg: '请求成功',
+            payload: {
+                name: 111
+            }
+        })
+})
+// // 物流下单
+app.post('/jsotnb/zhyc/selectBillByNoProcess', (req, res) => {
+    console.log(req.body);
+        res.send({
+            success: true,
+            msg: '请求成功',
+            payload: {
+                waybillNo: '9899797'
+            }
+        })
+})
+// 物流面单打印
+app.post('/jsotnb/zhyc/selectpostFaceListProcess', (req, res) => {
+    console.log(req.body);
+        res.send({
+            success: true,
+            msg: '请求成功',
+            payload: {
+                basePdf: data
+            }
+        })
+})
+//物流订单轨迹详情
+app.post('/jsotnb/zhyc/selectWlgjByNoProcess', (req, res) => {
+    console.log(req.body);
+        res.send({
+            success: true,
+            msg: '请求成功',
+            payload: {
+                name: 111
+            }
+        })
 })
 
 app.post('/iifstrl/apis/iifs-bris/route/jsotnb/queryPlanBillProcess', (req, res) => {
